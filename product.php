@@ -57,8 +57,7 @@
             cart.push(cart_obj);
 
             localStorage.setItem('cart', JSON.stringify(cart));
-            
-
+            alert("Product added to cart");
         }
 
     </script>
