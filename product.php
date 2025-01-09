@@ -1,6 +1,6 @@
 <?php 
 
-    $conn = mysqli_connect("localhost", "root", "Kaung123", "fashion");
+    $conn = mysqli_connect("localhost", "root", "hidecard", "fashion");
 
 
 ?>
