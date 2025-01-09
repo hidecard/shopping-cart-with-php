@@ -56,13 +56,20 @@ if (!$conn) {
 
     <script>
         function addToCart(pro_img, pro_name, pro_price, pro_id) {
-            let cart = JSON.parse(localStorage.getItem("cart")) || [];
-            const product = { pro_img, pro_name, pro_price, pro_id };
-            cart.push(product);
-            localStorage.setItem('cart', JSON.stringify(cart));
-            alert("Product added to cart!");
-            window.location.href = "cart.php";
-        }
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const existingProductIndex = cart.findIndex(item => item.pro_id === pro_id);
+
+    if (existingProductIndex !== -1) {
+        cart[existingProductIndex].quantity += 1;
+    } else {
+        cart.push({ pro_img, pro_name, pro_price, pro_id, quantity: 1 });
+    }
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+    alert("Product added to cart!");
+    window.location.href = "cart.php";
+}
+
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>

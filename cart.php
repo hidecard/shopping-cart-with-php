@@ -1,3 +1,11 @@
+<?php
+$conn = mysqli_connect("localhost", "root", "hidecard", "fashion");
+
+if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+}
+?>
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -11,6 +19,10 @@
         <div class="row" id="row"></div>
         <h2 class="mt-4">Total Amount: $<span id="total_amount">0</span></h2>
     </div>
+    <div class="container text-center my-4">
+    <button class="btn btn-success mt-3" onclick="saveOrder()">Save Order</button>
+</div>
+
 
     <script>
         const row = document.getElementById("row");
@@ -40,13 +52,6 @@
             document.getElementById("total_amount").textContent = totalAmount.toFixed(2);
         }
 
-        function updateQuantity(index, delta) {
-            const input = document.querySelectorAll('input[type="number"]')[index];
-            const newQuantity = Math.max(1, Number(input.value) + delta);
-            input.value = newQuantity;
-            updateAmount(index, input);
-        }
-
         function updateAmount(index, input) {
             const item = cart[index];
             const quantity = Number(input.value);
@@ -68,6 +73,54 @@
             });
             document.getElementById("total_amount").textContent = totalAmount.toFixed(2);
         }
+
+        function saveOrder() {
+            const cart = JSON.parse(localStorage.getItem("cart")) || [];
+            let totalAmount = 0;
+
+            cart.forEach(item => {
+            totalAmount += item.pro_price * item.quantity;
+            });
+
+            const data = {
+            total_price: totalAmount,
+            items: cart
+            };
+
+            fetch('save_cart.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+            .then(response => response.json())
+            .then(result => {
+            if (result.status === 'success') {
+                alert(result.message);
+                localStorage.removeItem("cart");
+                window.location.reload();
+            } else {
+                alert(result.message);
+            }
+        })
+            .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+
+    function updateQuantity(index, delta) {
+        const input = document.querySelectorAll('input[type="number"]')[index];
+        const newQuantity = Math.max(1, Number(input.value) + delta);
+        input.value = newQuantity;
+
+        const cart = JSON.parse(localStorage.getItem("cart")) || [];
+        cart[index].quantity = newQuantity;
+        localStorage.setItem("cart", JSON.stringify(cart));
+        updateAmount(index, input);
+    }
+      
+
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
