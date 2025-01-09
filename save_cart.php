@@ -8,7 +8,7 @@ if (!$conn) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $cart = json_decode(file_get_contents('php://input'), true);
 
-    $user_id = 1; // လက်ရှိ User ID (Testing အတွက် hardcoded)
+    $user_id = 1; 
     $total_price = $cart['total_price'];
     $order_date = date("Y-m-d H:i:s");
 
