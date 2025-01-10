@@ -2,10 +2,6 @@
 
 $conn = mysqli_connect("localhost", "root", "hidecard", "fashion");
 
-if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
-}
-
 ?>
 
 <!doctype html>
@@ -33,11 +29,10 @@ if (!$conn) {
                     <div class="card-body text-center">
                         <h5 class="card-title"><?php echo htmlspecialchars($data['pro_name']); ?></h5>
                         <p class="card-text">$<?php echo htmlspecialchars($data['pro_price']); ?></p>
-                        <button class="btn btn-primary" 
-                                onclick="addToCart('<?php echo htmlspecialchars($data['pro_img']); ?>',
-                                                   '<?php echo htmlspecialchars($data['pro_name']); ?>',
-                                                   <?php echo htmlspecialchars($data['pro_price']); ?>,
-                                                   <?php echo htmlspecialchars($data['pro_id']); ?>)">
+                        <button class="btn btn-primary" onclick="addToCart('<?php echo htmlspecialchars($data['pro_img']); ?>',
+                                                                            '<?php echo htmlspecialchars($data['pro_name']); ?>',
+                                                                            <?php echo htmlspecialchars($data['pro_price']); ?>,
+                                                                            <?php echo htmlspecialchars($data['pro_id']); ?>)">
                             Add to Cart
                         </button>
                     </div>
@@ -55,19 +50,19 @@ if (!$conn) {
     </div>
 
     <script>
-        function addToCart(pro_img, pro_name, pro_price, pro_id) {
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
-    const existingProductIndex = cart.findIndex(item => item.pro_id === pro_id);
+            function addToCart(pro_img, pro_name, pro_price, pro_id) {
+                    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+                    const existingProductIndex = cart.findIndex(item => item.pro_id === pro_id);
 
-    if (existingProductIndex !== -1) {
-        cart[existingProductIndex].quantity += 1;
-    } else {
-        cart.push({ pro_img, pro_name, pro_price, pro_id, quantity: 1 });
-    }
+                    if (existingProductIndex !== -1) {
+                        cart[existingProductIndex].quantity += 1;
+                    } else {
+                        cart.push({ pro_img, pro_name, pro_price, pro_id, quantity: 1 });
+                    }
 
-    localStorage.setItem("cart", JSON.stringify(cart));
-    alert("Product added to cart!");
-    window.location.href = "cart.php";
+                    localStorage.setItem("cart", JSON.stringify(cart));
+                    alert("Product added to cart!");
+                    window.location.href = "cart.php";
 }
 
     </script>

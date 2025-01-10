@@ -1,14 +1,10 @@
 <?php
 $conn = mysqli_connect("localhost", "root", "hidecard", "fashion");
 
-if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
-}
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $cart = json_decode(file_get_contents('php://input'), true);
 
-    $user_id = 1; 
+    $user_id = 1;
     $total_price = $cart['total_price'];
     $order_date = date("Y-m-d H:i:s");
 

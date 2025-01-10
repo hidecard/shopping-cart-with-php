@@ -1,9 +1,5 @@
 <?php
 $conn = mysqli_connect("localhost", "root", "hidecard", "fashion");
-
-if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
-}
 ?>
 
 <!doctype html>
@@ -49,14 +45,14 @@ if (!$conn) {
                 `;
                 totalAmount += item.pro_price;
             });
-            document.getElementById("total_amount").textContent = totalAmount.toFixed(2);
+            document.getElementById("total_amount").textContent = totalAmount;
         }
 
         function updateAmount(index, input) {
             const item = cart[index];
             const quantity = Number(input.value);
             const itemTotal = document.querySelectorAll(".item-total")[index];
-            itemTotal.textContent = (item.pro_price * quantity).toFixed(2);
+            itemTotal.textContent = (item.pro_price * quantity);
             calculateTotal();
         }
 
@@ -71,7 +67,7 @@ if (!$conn) {
             document.querySelectorAll(".item-total").forEach(item => {
                 totalAmount += parseFloat(item.textContent);
             });
-            document.getElementById("total_amount").textContent = totalAmount.toFixed(2);
+            document.getElementById("total_amount").textContent = totalAmount;
         }
 
         function saveOrder() {
@@ -119,7 +115,6 @@ if (!$conn) {
         localStorage.setItem("cart", JSON.stringify(cart));
         updateAmount(index, input);
     }
-      
 
     </script>
 
