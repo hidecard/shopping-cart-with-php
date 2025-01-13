@@ -38,7 +38,6 @@ $conn = mysqli_connect("localhost", "root", "hidecard", "fashion");
                     </div>
                 </div>
             </div>
-
             <?php 
                     endwhile;
                 else:

@@ -23,6 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $sql_item = "INSERT INTO ord_pro (order_id, product_id, quantity, price, total_price) 
                          VALUES ('$order_id', '$product_id', '$quantity', '$price', '$total_price')";
             mysqli_query($conn, $sql_item);
+            
         }
 
         echo json_encode(["status" => "success", "message" => "Order saved successfully."]);
