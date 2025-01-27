@@ -84,9 +84,11 @@
                 method:"POST",
                 data:{item_name:item_name, item_code:item_code, item_desc:item_desc, item_price:item_price},
                 success:function(data){
-                    alert(data);
-                    fetch_item_data();
+                    $("td[contenteditable=true]").text("");
+                    for(var i=2; i<= count; i++){
+                        $('tr#'+i).remove();
                 }
+            }
             });
         })
     });
