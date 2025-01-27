@@ -63,7 +63,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
                 <div class="modal-body">
                     <p>Are you sure you want to save this order?</p>
-                    <div id="modal-status" class="text-center"></div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
@@ -150,8 +149,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 items: cart
             };
 
-            document.getElementById('modal-status').textContent = "Saving your order...";
-
             fetch('', {
                 method: 'POST',
                 headers: {
@@ -167,8 +164,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         localStorage.removeItem("cart");
                         window.location.reload();
                     }, 2000);
-                } else {
-                    document.getElementById('modal-status').textContent = "Failed to save the order.";
                 }
             })
             .catch(error => {
