@@ -90,6 +90,16 @@
                 }
             }
             });
+            //fetch data function
+            function fetch_item_data(){
+                $.ajax({
+                    url:"fetch.php",
+                    method:"POST",
+                    success:function(data){
+                        $('#insertde_item_data').html(data);
+                    }
+                })
+            }
         })
     });
    </script>
